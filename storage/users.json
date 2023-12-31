@@ -1,0 +1,22 @@
+{
+    "6590155e4f21a": {
+        "username": "admin",
+        "password": "$2y$10$6oAAXPFd5DSi5kjQzcORx.fRbf9H.XFQdV1ShtyaI2D1Cj80yLRtC",
+        "email": "admin@gmail.com",
+        "credits": 1000,
+        "roles": [
+            "user"
+        ],
+        "id": "6590155e4f21a"
+    },
+    "65901664ab8c8": {
+        "username": "vyperrrr",
+        "password": "$2y$10$nVQ5oFO4e4f\/bUbOmL45Se4KB7NH23owZtKaEYkgjJkg2fwayoot.",
+        "email": "gpatrik101@gmail.com",
+        "credits": 1000,
+        "roles": [
+            "user"
+        ],
+        "id": "65901664ab8c8"
+    }
+}
