@@ -1,27 +1,24 @@
 <?php
 
-    $id = isset($_GET["id"]) ? $_GET["id"] : '';
+$id = isset($_GET["id"]) ? $_GET["id"] : '';
 
-    if(empty($id))
-    {
-        header("Location: index.php");
-        exit();
-    }
-        
-    require './storage/CardStorage.php';
-    
-    $storage = new CardStorage();
+if (empty($id)) {
+    header("Location: index.php");
+    exit();
+}
 
-    $card = $storage->findById($id);
+require './storage/CardStorage.php';
 
-    if(!isset($card)) 
-    {
-        header("Location: index.php");
-        exit();
-    }
+$cardStorage = new CardStorage();
+
+$card = $cardStorage->findById($id);
+
+if (!isset($card)) {
+    header("Location: index.php");
+    exit();
+}
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,10 +42,10 @@
             </div>
             <div class="info">
                 <div class="description">
-                    <?= $card["description"] ?>  
+                    <?= $card["description"] ?>
                 </div>
                 <span class="card-type">
-                    <span class="icon">🏷</span> 
+                    <span class="icon">🏷</span>
                     Type: <?= $card["type"] ?>
                 </span>
                 <div class="attributes">
@@ -63,4 +60,5 @@
         <p>IKémon | ELTE IK Webprogramozás</p>
     </footer>
 </body>
+
 </html>

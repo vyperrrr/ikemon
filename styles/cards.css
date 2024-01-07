@@ -33,6 +33,12 @@
     margin-top: 10px;
 }
 
+.pokemon-card a {
+    color: inherit;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
 .pokemon-card h2 a {
     color: inherit;
     text-decoration: none;

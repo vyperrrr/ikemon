@@ -1,21 +1,21 @@
 <?php
 
-    session_start();
+session_start();
+require_once "storage/UserStorage.php";
+require_once "storage/CardStorage.php";
+require_once "auth.php";
 
-    require_once "storage/UserStorage.php";
-    require_once "storage/CardStorage.php";
-    require_once "vendor/Auth.php";
+$cardStorage = new CardStorage();
+$userStorage = new UserStorage();
 
-    $auth = new Auth(new UserStorage());
-    $storage = new CardStorage();
+if (!$auth->is_authenticated()) {
+    header('Location: index.php');
+    exit();
+}
 
-    if (!$auth->is_authenticated()) {
-        header('Location: index.php');
-        exit();
-    }
+$cards = $cardStorage->findAll();
 
-    $user = $auth->authenticated_user();
-    $cards = $storage->findAll();
+$user = $userStorage->findById($auth->authenticated_user()["id"])
 
 ?>
 
@@ -40,45 +40,45 @@
         <h1><?= $user["email"] ?></h1>
         <h1><?= $user["credits"] ?></h1>
         <div id="card-list">
-            <?php foreach($cards as $id => $card): ?>
-                <?php if($card["owner"] == $user["username"]): ?>
+            <?php foreach ($cards as $id => $card) : ?>
+                <?php if ($card["owner"] == $user["username"]) : ?>
                     <div class="pokemon-card">
-                    <div class="image clr-<?= $card["type"] ?>">
-                        <img src=<?= $card["image"] ?> alt=<?= $card["name"] ?>>
-                    </div>
-                    <div class="details">
-                        <h2>
-                            <a href="details.php?id=<?= $id ?>">
-                                <?= $card["name"] ?>
-                            </a>
-                        </h2>
-                        <span class="card-type">
-                            <span class="icon">🏷</span>
-                            <?= $card["type"] ?>
-                        </span>
-                        <span class="attributes">
-                            <span class="card-hp">
-                                <span class="icon">❤</span>
-                                <?= $card["hp"] ?>
-                            </span>
-                            <span class="card-attack">
-                                <span class="icon">⚔</span>
-                                <?= $card["attack"] ?>
-                            </span>
-                            <span class="card-defense">
-                                <span class="icon">🛡</span>
-                                <?= $card["defense"] ?>
-                            </span>
-                        </span>
-                    </div>
-                    <a href="sell-card.php?id=<?= $id ?>">
-                        <div class="buy">
-                            <span class="card-price">
-                                <span class="icon">Sell for 💰</span>
-                                <?= $card["price"]*0.9 ?></span>
+                        <div class="image clr-<?= $card["type"] ?>">
+                            <img src=<?= $card["image"] ?> alt=<?= $card["name"] ?>>
                         </div>
-                    </a>
-                </div>
+                        <div class="details">
+                            <h2>
+                                <a href="details.php?id=<?= $id ?>">
+                                    <?= $card["name"] ?>
+                                </a>
+                            </h2>
+                            <span class="card-type">
+                                <span class="icon">🏷</span>
+                                <?= $card["type"] ?>
+                            </span>
+                            <span class="attributes">
+                                <span class="card-hp">
+                                    <span class="icon">❤</span>
+                                    <?= $card["hp"] ?>
+                                </span>
+                                <span class="card-attack">
+                                    <span class="icon">⚔</span>
+                                    <?= $card["attack"] ?>
+                                </span>
+                                <span class="card-defense">
+                                    <span class="icon">🛡</span>
+                                    <?= $card["defense"] ?>
+                                </span>
+                            </span>
+                        </div>
+                        <a href="sell.php?id=<?= $id ?>">
+                            <div class="buy">
+                                <span class="card-price">
+                                    <span class="icon">Sell for 💰</span>
+                                    <?= $card["price"] * 0.9 ?></span>
+                            </div>
+                        </a>
+                    </div>
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>

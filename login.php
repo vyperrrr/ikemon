@@ -1,54 +1,48 @@
 <?php
 
-    session_start();
+session_start();
+require_once "storage/UserStorage.php";
+require_once "auth.php";
 
-    require_once "storage/UserStorage.php";
-    require_once "vendor/Auth.php";
+if ($auth->is_authenticated()) {
+    header('Location: index.php');
+    exit();
+}
 
-    $auth = new Auth(new UserStorage());
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    if ($auth->is_authenticated()) {
-        header('Location: index.php');
-        exit();
+    $userStorage = new UserStorage();
+
+    $username = trim($_POST["username"]) ?? '';
+    $password = trim($_POST["password"]) ?? '';
+
+    $errors = [];
+
+    //Error handling
+
+    if (empty($username)) {
+        $errors["username"] = "Username is empty";
     }
 
-    if($_SERVER["REQUEST_METHOD"] == "POST")
-    {
+    if (empty($password)) {
+        $errors["password"] = "Password is empty";
+    }
 
-        $users = new UserStorage();
+    //Operations
 
-        $username = trim($_POST["username"]) ?? '';
-        $password = trim($_POST["password"]) ?? '';
+    if (count($errors) === 0) {
+        $user = $auth->authenticate($username, $password);
 
-        $errors = [];
+        if (!is_null($user)) {
+            $auth->login($user);
 
-        //Error handling
-
-        if(empty($username))
-        {
-            $errors["username"] = "Username is empty";
-        }
-
-        if(empty($password))
-        {
-            $errors["password"] = "Password is empty";
-        }
-
-        //Operations
-
-        if (count($errors) === 0) {
-            $user = $auth->authenticate($username,$password);
-    
-            if (!is_null($user)) {
-                $auth->login($user);
-    
-                header("Location: index.php");
-                exit();
-            } else {
-                $errors['invalid'] = "Wrong username or password";
-            }
+            header("Location: index.php");
+            exit();
+        } else {
+            $errors['invalid'] = "Wrong username or password";
         }
     }
+}
 
 ?>
 
@@ -74,13 +68,13 @@
                 <label for="username">Username:</label>
                 <input type="text" name="username" id="username" value=<?= $username ?? '' ?>>
             </div>
-            <?php if(isset($errors["username"])): ?><span class="error"><?= $errors["username"] ?></span><?php endif; ?>
+            <?php if (isset($errors["username"])) : ?><span class="error"><?= $errors["username"] ?></span><?php endif; ?>
             <div>
                 <label for="password">Password:</label>
                 <input type="password" name="password" id="password" value=<?= $password ?? '' ?>>
             </div>
-            <?php if(isset($errors["password"])): ?><span class="error"><?= $errors["password"] ?></span><?php endif; ?>
-            <?php if (isset($errors['invalid'])): ?>
+            <?php if (isset($errors["password"])) : ?><span class="error"><?= $errors["password"] ?></span><?php endif; ?>
+            <?php if (isset($errors['invalid'])) : ?>
                 <div class='error'>
                     <?= $errors['invalid'] ?>
                 </div>

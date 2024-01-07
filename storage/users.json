@@ -1,22 +1,22 @@
 {
-    "6590155e4f21a": {
+    "6599ab66d7006": {
         "username": "admin",
-        "password": "$2y$10$6oAAXPFd5DSi5kjQzcORx.fRbf9H.XFQdV1ShtyaI2D1Cj80yLRtC",
-        "email": "admin@gmail.com",
-        "credits": 1000,
+        "password": "$2y$10$i5GXpBOkod8smCiiRvBrDe9YnD8J\/pTCPqpt.qSpE6KuTvJ1xVxTe",
+        "email": "admin@admin.com",
+        "credits": 2700,
         "roles": [
-            "user"
+            "admin"
         ],
-        "id": "6590155e4f21a"
+        "id": "6599ab66d7006"
     },
-    "65901664ab8c8": {
+    "6599ade099f7d": {
         "username": "vyperrrr",
-        "password": "$2y$10$nVQ5oFO4e4f\/bUbOmL45Se4KB7NH23owZtKaEYkgjJkg2fwayoot.",
-        "email": "gpatrik101@gmail.com",
-        "credits": 1000,
+        "password": "$2y$10$xeE39zputDBYyc2BF0CNausevTAqsPIRPvWZ8UM5MyHWeOO.Uzhny",
+        "email": "patrikchannelmc@gmail.com",
+        "credits": 5311.3,
         "roles": [
             "user"
         ],
-        "id": "65901664ab8c8"
+        "id": "6599ade099f7d"
     }
 }

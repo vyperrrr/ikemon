@@ -40,8 +40,8 @@
 .clr-steel { background-image: var(--poke-clr-steel); }
 
 body {
-    background-color: var(--clr-white);
-    color: var(--clr-dark);
+    background-color: var(--clr-dark);
+    color: var(--clr-white);
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
     line-height: 1.5;
@@ -102,4 +102,10 @@ footer {
     color: var(--clr-white);
     padding: 10px;
     text-align: center;
+}
+
+div#content h1 a
+{
+    color: var(--clr-white);
+    text-decoration: none;
 }
